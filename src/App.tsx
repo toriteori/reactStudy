@@ -1,23 +1,11 @@
-import { useState } from "react";
+import Popup, { usePopup } from './utils/Popup';
 
 function App() {
   return (
     <>
       <header>
-        <h1>Hello World</h1>
+        <h1></h1>
       </header>
-      <main>
-        <section>
-          <article>
-            <ul>
-              <li>
-                <button type="button">클릭</button>
-              </li>
-            </ul>
-          </article>
-        </section>
-        <section></section>
-      </main>
     </>
   );
 }

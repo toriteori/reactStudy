@@ -1,0 +1,41 @@
+// flex 믹스인
+// 인자 순서: direction, justify, align, gap, wrap
+// 키워드 인자 사용 권장: @include flex($gap: 10px);
+@mixin flex($direction: null, $justify: null, $align: null, $gap: null, $wrap: null) {
+  display: flex;
+  @if $direction {
+    flex-direction: $direction;
+  }
+  @if $justify {
+    justify-content: $justify;
+  }
+  @if $align {
+    align-items: $align;
+  }
+  @if $gap {
+    gap: $gap;
+  }
+  @if $wrap {
+    flex-wrap: $wrap;
+  }
+}
+
+// 자주 사용하는 중앙 정렬 단축 믹스인
+@mixin flexCenter($direction: row, $gap: null, $wrap: null) {
+  @include flex($direction, center, center, $gap, $wrap);
+}
+
+// 사이 간격을 벌려주는 단축 믹스인
+@mixin flexBetween($align: center, $direction: row, $gap: null, $wrap: null) {
+  @include flex($direction, space-between, $align, $gap, $wrap);
+}
+
+// 시작 정렬 단축 믹스인
+@mixin flexStart($align: center, $direction: row, $gap: null, $wrap: null) {
+  @include flex($direction, flex-start, $align, $gap, $wrap);
+}
+
+// 끝 정렬 단축 믹스인
+@mixin flexEnd($align: center, $direction: row, $gap: null, $wrap: null) {
+  @include flex($direction, flex-end, $align, $gap, $wrap);
+}

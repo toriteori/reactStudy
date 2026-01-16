@@ -1,0 +1,42 @@
+@use "../variables" as *;
+
+/* 공통 팝업 */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background-color: var(--dim-color);
+  &[open] {
+    @include flexCenter;
+  }
+  &Inner {
+    @include flexStart($direction: column);
+    padding: 10px;
+    min-width: 50vh;
+    background-color: var(--bg-color);
+    border-radius: 12px;
+    &__head {
+      width: 100%;
+    }
+    &__cont {
+      width: 100%;
+    }
+    &__bot {
+      width: 100%;
+      .btnWrap {
+        @include flexBetween;
+        gap: 10px;
+        button {
+          @include flexCenter;
+          @include font16($weight: $med);
+          width: 100%;
+          height: 46px;
+          border-radius: 8px;
+        }
+      }
+    }
+  }
+}

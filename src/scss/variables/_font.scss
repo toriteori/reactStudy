@@ -1,0 +1,69 @@
+// 폰트 패밀리 변수
+$font-family: "Noto Sans kr", sans-serif;
+
+// 폰트 weight 변수
+$nor: 400; // normal
+$med: 500; // medium
+$bol: 700; // bold
+
+// 기본 폰트 믹스인 (유연하게 사용 가능)
+// 키워드 인자 사용 권장: @include font($size: 16px, $weight: 700);
+@mixin font($size: null, $line-height: null, $letter-spacing: null, $weight: null) {
+  color: var(--font-color);
+  font-family: $font-family;
+  @if $size {
+    font-size: $size;
+  }
+  @if $line-height {
+    line-height: $line-height;
+  }
+  @if $letter-spacing {
+    letter-spacing: $letter-spacing;
+  }
+  @if $weight {
+    font-weight: $weight;
+  }
+}
+
+// 사이즈별 단축 믹스인 (이미지 기준)
+// line-height는 font-size에 대한 비율로 계산 (단위 없는 숫자 사용)
+// weight는 선택적으로 사용 가능: @include font28($weight: 700);
+@mixin font28($weight: null) {
+  @include font(28px, 1.29, -1.4px, $weight); // 36px / 28px = 1.29
+}
+
+@mixin font26($weight: null) {
+  @include font(26px, 1.31, -1.3px, $weight); // 34px / 26px = 1.31
+}
+
+@mixin font24($weight: null) {
+  @include font(24px, 1.33, -1.2px, $weight); // 32px / 24px = 1.33
+}
+
+@mixin font22($weight: null) {
+  @include font(22px, 1.36, -1.1px, $weight); // 30px / 22px = 1.36
+}
+
+@mixin font20($weight: null) {
+  @include font(20px, 1.4, -1px, $weight); // 28px / 20px = 1.4
+}
+
+@mixin font18($weight: null) {
+  @include font(18px, 1.33, -0.9px, $weight); // 24px / 18px = 1.33
+}
+
+@mixin font16($weight: null) {
+  @include font(16px, 1.5, -0.8px, $weight); // 24px / 16px = 1.5
+}
+
+@mixin font14($weight: null) {
+  @include font(14px, 1.43, -0.7px, $weight); // 20px / 14px = 1.43
+}
+
+@mixin font12($weight: null) {
+  @include font(12px, 1.5, -0.6px, $weight); // 18px / 12px = 1.5
+}
+
+@mixin font10($weight: null) {
+  @include font(10px, 1.6, -0.5px, $weight); // 16px / 10px = 1.6
+}
