@@ -1,0 +1,11 @@
+@use '@styles/variables' as *;
+
+/* 공통 헤더 */
+header {
+  background-color: var(--black);
+  color: #fff;
+  padding: 20px;
+  h1 {
+    @include font28($weight: $bol, $color: var(--white));
+  }
+}

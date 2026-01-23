@@ -4,11 +4,16 @@
   --white: #fff;
 
   // 배경색상
-  --bg-color: #ffff;
+  --bg-color: #fff;
 
   // 딤드영역 색상
   --dim-color: rgba(0, 0, 0, 0.5);
 
   // 기본 폰트 색상
   --font-color: #333;
+}
+
+:root.dark-theme {
+  --black: #fff;
+  --white: #111;
 }

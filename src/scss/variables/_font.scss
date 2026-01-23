@@ -1,15 +1,77 @@
+@use 'sass:map';
+
 // 폰트 패밀리 변수
-$font-family: "Noto Sans kr", sans-serif;
+$font-family: 'Noto Sans kr', sans-serif;
 
 // 폰트 weight 변수
 $nor: 400; // normal
 $med: 500; // medium
 $bol: 700; // bold
 
+// 폰트 사이즈별 설정 맵 (한 곳에서 관리)
+// line-height는 font-size에 대한 비율, letter-spacing은 음수 값
+$font-sizes: (
+  10: (
+    size: 10px,
+    line-height: 1.6,
+    letter-spacing: -0.5px,
+  ),
+  12: (
+    size: 12px,
+    line-height: 1.5,
+    letter-spacing: -0.6px,
+  ),
+  14: (
+    size: 14px,
+    line-height: 1.43,
+    letter-spacing: -0.7px,
+  ),
+  16: (
+    size: 16px,
+    line-height: 1.5,
+    letter-spacing: -0.8px,
+  ),
+  18: (
+    size: 18px,
+    line-height: 1.33,
+    letter-spacing: -0.9px,
+  ),
+  20: (
+    size: 20px,
+    line-height: 1.4,
+    letter-spacing: -1px,
+  ),
+  22: (
+    size: 22px,
+    line-height: 1.36,
+    letter-spacing: -1.1px,
+  ),
+  24: (
+    size: 24px,
+    line-height: 1.33,
+    letter-spacing: -1.2px,
+  ),
+  26: (
+    size: 26px,
+    line-height: 1.31,
+    letter-spacing: -1.3px,
+  ),
+  28: (
+    size: 28px,
+    line-height: 1.29,
+    letter-spacing: -1.4px,
+  ),
+);
+
 // 기본 폰트 믹스인 (유연하게 사용 가능)
 // 키워드 인자 사용 권장: @include font($size: 16px, $weight: 700);
-@mixin font($size: null, $line-height: null, $letter-spacing: null, $weight: null) {
-  color: var(--font-color);
+@mixin font(
+  $size: null,
+  $line-height: null,
+  $letter-spacing: null,
+  $weight: null,
+  $color: null
+) {
   font-family: $font-family;
   @if $size {
     font-size: $size;
@@ -23,47 +85,68 @@ $bol: 700; // bold
   @if $weight {
     font-weight: $weight;
   }
+  @if $color {
+    color: $color;
+  } @else {
+    color: var(--font-color);
+  }
 }
 
-// 사이즈별 단축 믹스인 (이미지 기준)
-// line-height는 font-size에 대한 비율로 계산 (단위 없는 숫자 사용)
-// weight는 선택적으로 사용 가능: @include font28($weight: 700);
-@mixin font28($weight: null) {
-  @include font(28px, 1.29, -1.4px, $weight); // 36px / 28px = 1.29
+// 사이즈별 단축 믹스인 (맵 기반 자동 처리)
+// 사용법: @include font-size(28, $weight: 700, $color: #000);
+@mixin font-size($size-key, $weight: null, $color: null) {
+  @if map.has-key($font-sizes, $size-key) {
+    $config: map.get($font-sizes, $size-key);
+    @include font(
+      map.get($config, size),
+      map.get($config, 'line-height'),
+      map.get($config, 'letter-spacing'),
+      $weight,
+      $color
+    );
+  } @else {
+    @warn "Font size #{$size-key} is not defined in $font-sizes map.";
+  }
 }
 
-@mixin font26($weight: null) {
-  @include font(26px, 1.31, -1.3px, $weight); // 34px / 26px = 1.31
+// 하위 호환성을 위한 기존 믹스인들 (자동 생성)
+// 사용법: @include font28($weight: 700, $color: #000);
+@mixin font28($weight: null, $color: null) {
+  @include font-size(28, $weight, $color);
 }
 
-@mixin font24($weight: null) {
-  @include font(24px, 1.33, -1.2px, $weight); // 32px / 24px = 1.33
+@mixin font26($weight: null, $color: null) {
+  @include font-size(26, $weight, $color);
 }
 
-@mixin font22($weight: null) {
-  @include font(22px, 1.36, -1.1px, $weight); // 30px / 22px = 1.36
+@mixin font24($weight: null, $color: null) {
+  @include font-size(24, $weight, $color);
 }
 
-@mixin font20($weight: null) {
-  @include font(20px, 1.4, -1px, $weight); // 28px / 20px = 1.4
+@mixin font22($weight: null, $color: null) {
+  @include font-size(22, $weight, $color);
 }
 
-@mixin font18($weight: null) {
-  @include font(18px, 1.33, -0.9px, $weight); // 24px / 18px = 1.33
+@mixin font20($weight: null, $color: null) {
+  @include font-size(20, $weight, $color);
 }
 
-@mixin font16($weight: null) {
-  @include font(16px, 1.5, -0.8px, $weight); // 24px / 16px = 1.5
+@mixin font18($weight: null, $color: null) {
+  @include font-size(18, $weight, $color);
 }
 
-@mixin font14($weight: null) {
-  @include font(14px, 1.43, -0.7px, $weight); // 20px / 14px = 1.43
+@mixin font16($weight: null, $color: null) {
+  @include font-size(16, $weight, $color);
 }
 
-@mixin font12($weight: null) {
-  @include font(12px, 1.5, -0.6px, $weight); // 18px / 12px = 1.5
+@mixin font14($weight: null, $color: null) {
+  @include font-size(14, $weight, $color);
 }
 
-@mixin font10($weight: null) {
-  @include font(10px, 1.6, -0.5px, $weight); // 16px / 10px = 1.6
+@mixin font12($weight: null, $color: null) {
+  @include font-size(12, $weight, $color);
+}
+
+@mixin font10($weight: null, $color: null) {
+  @include font-size(10, $weight, $color);
 }
